@@ -2,12 +2,14 @@ mod db;
 mod model;
 mod router;
 
-use crate::router::{auth::get_users, test::test};
+use crate::router::{auth::{get_users,login}, test::test};
 use axum::{routing::post, Router};
 
 pub async fn run() {
     let app = Router::new()
         .route("/auth/users", post(get_users))
+        .route("/auth/login", post(login))
+
         .route("/test/test", post(test));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
