@@ -6,8 +6,9 @@ use crate::router::{
     // auth::{get_users, join, login, secession, update_user},
     // test::test,
 };
-use axum::{response::Html,routing::{post}, Router};
+use axum::{response::Html,routing::{get, post}, Router};
 pub async fn index() -> Html<&'static str> {
+    println!("{}",1);
     let html_content = include_str!("../index.html");
     Html(html_content)
 }
@@ -19,7 +20,7 @@ pub async fn run() {
         // .route("/auth/secession", post(secession))
         // .route("/auth/update", post(update_user))
         // .route("/test/test", post(test));
-    .route("/test/test", post(index));
+    .route("/", get(index));
 
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
